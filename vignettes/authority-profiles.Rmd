@@ -116,6 +116,6 @@ Some authorities adjust requirements based on study phase. Pass
 `study_phase` to reflect phase-specific requirements:
 
 ```{r phase}
-pmda_jnda_p3 <- submission_profile("PMDA", "JNDA", study_phase = "Phase3")
-pmda_jnda_p3$pillar_weights
+pmda_nda_p3 <- submission_profile("PMDA", "NDA_JP", study_phase = "Phase3")
+pmda_nda_p3$pillar_weights
 ```
