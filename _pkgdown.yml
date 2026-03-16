@@ -33,6 +33,10 @@ reference:
     contents:
       - list_authorities
       - list_submission_types
+  - title: "Print Methods"
+    contents:
+      - print.profile_validation
+      - print.submission_profile
 
 footer:
   structure:
