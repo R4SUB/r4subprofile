@@ -2,9 +2,9 @@ Package: r4subprofile
 Title: Regulatory Submission Profiles for Clinical Submission Readiness
 Version: 0.1.0
 Authors@R:
-    person("Pawan Rama", "Mali", email = "prm@outlook.in", role = c("aut", "cre"))
-Author: Pawan Rama Mali [aut, cre]
-Maintainer: Pawan Rama Mali <prm@outlook.in>
+    person("Pawan Rama", "Mali", email = "prm@outlook.in",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-7864-5819"))
 Description: Defines submission profiles per regulatory authority with
     authority-specific pillar weights, decision thresholds, indicator
     requirements, and risk configuration. Supports the U.S. Food and Drug
@@ -24,9 +24,12 @@ Imports:
     rlang,
     tibble
 Suggests:
+    knitr,
     r4subscore,
     r4subrisk,
+    rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -1,0 +1,121 @@
+---
+title: "Regulatory Authority Profiles"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Regulatory Authority Profiles}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Different regulatory authorities weight the four R4SUB evidence pillars
+(quality, trace, risk, usability) differently. The `r4subprofile` package
+encodes these authority-specific requirements so that the SCI can be
+calibrated accordingly.
+
+```{r load}
+library(r4subprofile)
+```
+
+## Supported authorities
+
+```{r authorities}
+list_authorities()
+```
+
+## Submission types per authority
+
+```{r sub-types-fda}
+list_submission_types("FDA")
+list_submission_types("EMA")
+```
+
+## Creating a submission profile
+
+`submission_profile()` returns a profile with authority-specific pillar
+weights, decision bands, and required indicators:
+
+```{r fda-nda}
+fda_nda <- submission_profile("FDA", "NDA")
+fda_nda$pillar_weights
+fda_nda$minimum_coverage
+```
+
+```{r ema-maa}
+ema_maa <- submission_profile("EMA", "MAA", study_phase = "Phase3")
+ema_maa$pillar_weights
+```
+
+## Comparing authority weights
+
+FDA NDA vs EMA MAA pillar weights:
+
+```{r compare}
+weights_df <- data.frame(
+  pillar    = c("quality", "trace", "risk", "usability"),
+  FDA_NDA   = unname(fda_nda$pillar_weights),
+  EMA_MAA   = unname(ema_maa$pillar_weights)
+)
+weights_df
+```
+
+## Profile summary
+
+`profile_summary()` returns a tidy tibble summarising the profile:
+
+```{r profile-summary}
+profile_summary(fda_nda)
+```
+
+## Validating evidence against a profile
+
+`validate_against_profile()` checks an evidence table against the
+profile's required indicators and asset types:
+
+```{r validate}
+ev <- data.frame(
+  run_id           = "run-001",
+  study_id         = "STUDY01",
+  asset_type       = c("dataset", "define", "program", "spec"),
+  asset_id         = c("ADSL", "define.xml", "prod_adsl.R", "ADSL"),
+  source_name      = "r4subcore",
+  source_version   = "0.1.2",
+  indicator_id     = c("Q-001", "Q-002", "R-001", "U-001"),
+  indicator_name   = c("Quality Check", "Define Check",
+                       "Program Validation", "Label Quality"),
+  indicator_domain = c("quality", "quality", "risk", "usability"),
+  severity         = "info",
+  result           = "pass",
+  metric_value     = 1,
+  metric_unit      = "score",
+  message          = "Check passed",
+  location         = c("ADSL", "define.xml", "prod_adsl.R", "ADSL"),
+  evidence_payload = "{}",
+  created_at       = Sys.time(),
+  stringsAsFactors = FALSE
+)
+
+val <- validate_against_profile(ev, fda_nda)
+val$is_compliant
+val$coverage
+val$missing_indicators
+```
+
+The `details` tibble shows per-requirement status:
+
+```{r details}
+head(val$details)
+```
+
+## Study phase
+
+Some authorities adjust requirements based on study phase. Pass
+`study_phase` to reflect phase-specific requirements:
+
+```{r phase}
+pmda_jnda_p3 <- submission_profile("PMDA", "JNDA", study_phase = "Phase3")
+pmda_jnda_p3$pillar_weights
+```
