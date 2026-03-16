@@ -14,7 +14,7 @@ Description: Defines submission profiles per regulatory authority with
     Agency (MHRA). Integrates with 'r4subscore' and 'r4subrisk' configuration
     systems.
 License: MIT + file LICENSE
-URL: https://github.com/R4SUB/r4subprofile
+URL: https://r4sub.github.io/r4subprofile/, https://github.com/R4SUB/r4subprofile
 BugReports: https://github.com/R4SUB/r4subprofile/issues
 Depends:
     R (>= 4.2)

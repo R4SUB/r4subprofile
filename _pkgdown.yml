@@ -1,0 +1,40 @@
+url: https://r4sub.github.io/r4subprofile/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    primary: "#2C6DB5"
+
+navbar:
+  bg: light
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fab fa-github
+      href: https://github.com/R4SUB/r4subprofile
+      aria-label: GitHub
+
+home:
+  title: "r4subprofile — Regulatory Authority Profiles"
+  description: >
+    Regulatory submission profiles for FDA, EMA, PMDA, Health Canada, ANVISA,
+    and MHRA with authority-specific pillar weights and indicator requirements.
+
+reference:
+  - title: "Profiles"
+    contents:
+      - submission_profile
+      - profile_summary
+      - validate_against_profile
+  - title: "Discovery"
+    contents:
+      - list_authorities
+      - list_submission_types
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
