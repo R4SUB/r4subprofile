@@ -19,9 +19,6 @@ navbar:
 
 home:
   title: "r4subprofile — Regulatory Authority Profiles"
-  description: >
-    Regulatory submission profiles for FDA, EMA, PMDA, Health Canada, ANVISA,
-    and MHRA with authority-specific pillar weights and indicator requirements.
 
 reference:
   - title: "Profiles"
@@ -29,6 +26,9 @@ reference:
       - submission_profile
       - profile_summary
       - validate_against_profile
+      - profile_required_indicators
+      - profile_risk_config
+      - profile_sci_config
   - title: "Discovery"
     contents:
       - list_authorities
