@@ -55,12 +55,16 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="r4subprofile">r4subprofile<a class="anchor" aria-label="anchor" href="#r4subprofile"></a>
 </h1></div>
-<p><strong>r4subprofile</strong> defines regulatory submission profiles for the R4SUB clinical submission readiness ecosystem.</p>
-<p>Each profile bundles authority-specific pillar weights, decision thresholds, required indicators, and risk configuration for a given regulatory authority and submission type.</p>
+<!-- badges: start -->
+
+<p><strong>r4subprofile</strong> defines regulatory submission profiles for the R4SUB clinical submission readiness ecosystem. Each profile bundles authority-specific pillar weights, decision thresholds, required indicators, and risk configuration for a given regulatory authority and submission type.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"r4subprofile"</span><span class="op">)</span></span></code></pre></div>
+<p>Development version:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"R4SUB/r4subprofile"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -69,7 +73,7 @@
 <table class="table">
 <thead><tr class="header">
 <th>Authority</th>
-<th>Country</th>
+<th>Region</th>
 <th>Submission Types</th>
 </tr></thead>
 <tbody>
@@ -109,42 +113,41 @@
 <div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4subprofile/">r4subprofile</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Browse authorities</span></span>
+<span><span class="co"># Browse supported authorities</span></span>
 <span><span class="fu"><a href="reference/list_authorities.html">list_authorities</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/list_submission_types.html">list_submission_types</a></span><span class="op">(</span><span class="st">"FDA"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Create a profile</span></span>
+<span><span class="co"># Create a submission profile</span></span>
 <span><span class="va">prof</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/submission_profile.html">submission_profile</a></span><span class="op">(</span><span class="st">"FDA"</span>, <span class="st">"NDA"</span><span class="op">)</span></span>
 <span><span class="va">prof</span><span class="op">$</span><span class="va">pillar_weights</span></span>
 <span><span class="va">prof</span><span class="op">$</span><span class="va">required_indicators</span></span>
 <span></span>
-<span><span class="co"># Extract configs compatible with r4subscore / r4subrisk</span></span>
+<span><span class="co"># Extract configs for downstream packages</span></span>
 <span><span class="va">sci_cfg</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/profile_sci_config.html">profile_sci_config</a></span><span class="op">(</span><span class="va">prof</span><span class="op">)</span></span>
 <span><span class="va">risk_cfg</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/profile_risk_config.html">profile_risk_config</a></span><span class="op">(</span><span class="va">prof</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Validate evidence against profile requirements</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/validate_against_profile.html">validate_against_profile</a></span><span class="op">(</span><span class="va">evidence</span>, <span class="va">prof</span><span class="op">)</span></span>
-<span><span class="va">result</span><span class="op">$</span><span class="va">is_compliant</span></span>
-<span><span class="va">result</span><span class="op">$</span><span class="va">missing_indicators</span></span></code></pre></div>
+<span><span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/validate_against_profile.html">validate_against_profile</a></span><span class="op">(</span><span class="va">evidence</span>, <span class="va">prof</span><span class="op">)</span></span>
+<span><span class="va">val</span><span class="op">$</span><span class="va">is_compliant</span></span>
+<span><span class="va">val</span><span class="op">$</span><span class="va">missing_indicators</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="integration-with-r4sub-packages">Integration with R4SUB Packages<a class="anchor" aria-label="anchor" href="#integration-with-r4sub-packages"></a>
+<h2 id="integration-with-r4subscore">Integration with r4subscore<a class="anchor" aria-label="anchor" href="#integration-with-r4subscore"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/R4SUB/r4subscore" class="external-link">r4subscore</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4subprofile/">r4subprofile</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">prof</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/submission_profile.html">submission_profile</a></span><span class="op">(</span><span class="st">"FDA"</span>, <span class="st">"NDA"</span><span class="op">)</span></span>
+<span><span class="va">prof</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/submission_profile.html">submission_profile</a></span><span class="op">(</span><span class="st">"EMA"</span>, <span class="st">"MAA"</span>, study_phase <span class="op">=</span> <span class="st">"Phase3"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Use profile weights for SCI computation</span></span>
 <span><span class="va">pillar_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subscore/man/compute_pillar_scores.html" class="external-link">compute_pillar_scores</a></span><span class="op">(</span><span class="va">evidence</span>, config <span class="op">=</span> <span class="fu"><a href="reference/profile_sci_config.html">profile_sci_config</a></span><span class="op">(</span><span class="va">prof</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">sci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subscore/man/compute_sci.html" class="external-link">compute_sci</a></span><span class="op">(</span><span class="va">pillar_scores</span>, config <span class="op">=</span> <span class="fu"><a href="reference/profile_sci_config.html">profile_sci_config</a></span><span class="op">(</span><span class="va">prof</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">sci</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/r4subscore/man/compute_sci.html" class="external-link">compute_sci</a></span><span class="op">(</span><span class="va">pillar_scores</span>, config <span class="op">=</span> <span class="fu"><a href="reference/profile_sci_config.html">profile_sci_config</a></span><span class="op">(</span><span class="va">prof</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="exported-functions">Exported Functions<a class="anchor" aria-label="anchor" href="#exported-functions"></a>
+<h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -170,11 +173,11 @@
 </tr>
 <tr class="even">
 <td><code><a href="reference/profile_sci_config.html">profile_sci_config()</a></code></td>
-<td>Extract SCI configuration (r4subscore compatible)</td>
+<td>Extract SCI config (r4subscore compatible)</td>
 </tr>
 <tr class="odd">
 <td><code><a href="reference/profile_risk_config.html">profile_risk_config()</a></code></td>
-<td>Extract risk configuration (r4subrisk compatible)</td>
+<td>Extract risk config (r4subrisk compatible)</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/profile_required_indicators.html">profile_required_indicators()</a></code></td>
@@ -186,7 +189,7 @@
 </tr>
 <tr class="even">
 <td><code><a href="reference/profile_summary.html">profile_summary()</a></code></td>
-<td>Print formatted profile summary</td>
+<td>Tidy tibble summary of a profile</td>
 </tr>
 </tbody>
 </table>
@@ -230,7 +233,15 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/R4SUB/r4subprofile/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/R4SUB/r4subprofile/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=r4subprofile" class="external-link"><img src="https://www.r-pkg.org/badges/version/r4subprofile" alt="CRAN status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=r4subprofile" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/r4subprofile" alt="CRAN downloads"></a></li>
+<li><a href="https://r4sub.r-universe.dev/r4subprofile" class="external-link"><img src="https://r4sub.r-universe.dev/badges/r4subprofile" alt="r-universe"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
