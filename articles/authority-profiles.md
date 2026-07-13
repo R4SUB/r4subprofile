@@ -6,12 +6,14 @@ package encodes these authority-specific requirements so that the SCI
 can be calibrated accordingly.
 
 ``` r
+
 library(r4subprofile)
 ```
 
 ## Supported authorities
 
 ``` r
+
 list_authorities()
 #> # A tibble: 6 × 4
 #>   authority     full_name                             country n_submission_types
@@ -27,6 +29,7 @@ list_authorities()
 ## Submission types per authority
 
 ``` r
+
 list_submission_types("FDA")
 #> [1] "IND"   "NDA"   "BLA"   "ANDA"  "505b2"
 list_submission_types("EMA")
@@ -40,6 +43,7 @@ returns a profile with authority-specific pillar weights, decision
 bands, and required indicators:
 
 ``` r
+
 fda_nda <- submission_profile("FDA", "NDA")
 fda_nda$pillar_weights
 #>   quality     trace      risk usability 
@@ -49,6 +53,7 @@ fda_nda$minimum_coverage
 ```
 
 ``` r
+
 ema_maa <- submission_profile("EMA", "MAA", study_phase = "Phase3")
 ema_maa$pillar_weights
 #>   quality     trace      risk usability 
@@ -60,6 +65,7 @@ ema_maa$pillar_weights
 FDA NDA vs EMA MAA pillar weights:
 
 ``` r
+
 weights_df <- data.frame(
   pillar    = c("quality", "trace", "risk", "usability"),
   FDA_NDA   = unname(fda_nda$pillar_weights),
@@ -79,6 +85,7 @@ weights_df
 returns a tidy tibble summarising the profile:
 
 ``` r
+
 profile_summary(fda_nda)
 #> ℹ Submission Profile: FDA NDA
 #>   Authority:    U.S. Food and Drug Administration (United States)
@@ -124,6 +131,7 @@ checks an evidence table against the profile’s required indicators and
 asset types:
 
 ``` r
+
 ev <- data.frame(
   run_id           = "run-001",
   study_id         = "STUDY01",
@@ -162,6 +170,7 @@ val$missing_indicators
 The `details` tibble shows per-requirement status:
 
 ``` r
+
 head(val$details)
 #> # A tibble: 6 × 2
 #>   requirement               status 
@@ -180,6 +189,7 @@ Some authorities adjust requirements based on study phase. Pass
 `study_phase` to reflect phase-specific requirements:
 
 ``` r
+
 pmda_nda_p3 <- submission_profile("PMDA", "NDA_JP", study_phase = "Phase3")
 pmda_nda_p3$pillar_weights
 #>   quality     trace      risk usability 

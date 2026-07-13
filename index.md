@@ -9,12 +9,14 @@ submission type.
 ## Installation
 
 ``` r
+
 install.packages("r4subprofile")
 ```
 
 Development version:
 
 ``` r
+
 pak::pak("R4SUB/r4subprofile")
 ```
 
@@ -32,6 +34,7 @@ pak::pak("R4SUB/r4subprofile")
 ## Quick Start
 
 ``` r
+
 library(r4subprofile)
 
 # Browse supported authorities
@@ -56,6 +59,7 @@ val$missing_indicators
 ## Integration with r4subscore
 
 ``` r
+
 library(r4subscore)
 library(r4subprofile)
 
@@ -67,16 +71,16 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 
 ## Key Functions
 
-| Function                                                                                                         | Purpose                                      |
-|------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| [`submission_profile()`](https://r4sub.github.io/r4subprofile/reference/submission_profile.md)                   | Create a regulatory submission profile       |
-| [`list_authorities()`](https://r4sub.github.io/r4subprofile/reference/list_authorities.md)                       | List all supported regulatory authorities    |
-| [`list_submission_types()`](https://r4sub.github.io/r4subprofile/reference/list_submission_types.md)             | List valid submission types for an authority |
-| [`profile_sci_config()`](https://r4sub.github.io/r4subprofile/reference/profile_sci_config.md)                   | Extract SCI config (r4subscore compatible)   |
-| [`profile_risk_config()`](https://r4sub.github.io/r4subprofile/reference/profile_risk_config.md)                 | Extract risk config (r4subrisk compatible)   |
-| [`profile_required_indicators()`](https://r4sub.github.io/r4subprofile/reference/profile_required_indicators.md) | Get mandatory indicators for a profile       |
-| [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md)       | Check evidence completeness vs profile       |
-| [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)                         | Tidy tibble summary of a profile             |
+| Function | Purpose |
+|----|----|
+| [`submission_profile()`](https://r4sub.github.io/r4subprofile/reference/submission_profile.md) | Create a regulatory submission profile |
+| [`list_authorities()`](https://r4sub.github.io/r4subprofile/reference/list_authorities.md) | List all supported regulatory authorities |
+| [`list_submission_types()`](https://r4sub.github.io/r4subprofile/reference/list_submission_types.md) | List valid submission types for an authority |
+| [`profile_sci_config()`](https://r4sub.github.io/r4subprofile/reference/profile_sci_config.md) | Extract SCI config (r4subscore compatible) |
+| [`profile_risk_config()`](https://r4sub.github.io/r4subprofile/reference/profile_risk_config.md) | Extract risk config (r4subrisk compatible) |
+| [`profile_required_indicators()`](https://r4sub.github.io/r4subprofile/reference/profile_required_indicators.md) | Get mandatory indicators for a profile |
+| [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md) | Check evidence completeness vs profile |
+| [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md) | Tidy tibble summary of a profile |
 
 ## License
 
