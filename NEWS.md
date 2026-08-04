@@ -1,4 +1,4 @@
-# r4subprofile (development version)
+# r4subprofile 0.2.0
 
 - Add versioned rule packs: `rule_packs()` lists the available packs,
   `rule_pack()` selects one by id (for example `"fda-2026.1"`) with an authority,
