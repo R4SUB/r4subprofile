@@ -119,3 +119,42 @@ Some authorities adjust requirements based on study phase. Pass
 pmda_nda_p3 <- submission_profile("PMDA", "NDA_JP", study_phase = "Phase3")
 pmda_nda_p3$pillar_weights
 ```
+
+## Versioned rule packs
+
+A profile answers "what does this authority require". A rule pack pins that to a
+named, dated version, so a score can be reproduced and compared over time as
+guidance changes. `rule_packs()` lists what is available:
+
+```{r packs}
+library(r4subprofile)
+rule_packs()
+```
+
+Select one by id. Each indicator carries a `source` field for its authoritative
+citation:
+
+```{r pack}
+pack <- rule_pack("fda-2026.1")
+pack
+head(rule_pack_indicators(pack))
+```
+
+The built-in packs ship with `source` set to `NA`: the citations are left for
+entry from a controlled regulatory reference list, rather than filled with
+unverified section numbers. Supply them when you have them:
+
+```{r sources}
+pack <- rule_pack(
+  "fda-2026.1",
+  sources = c("Q-MISS-VAR" = "FDA Study Data Technical Conformance Guide")
+)
+subset(rule_pack_indicators(pack), !is.na(source))
+```
+
+Record the pack on a scored result so the score can always be traced back to the
+exact ruleset and version that produced it:
+
+```{r provenance}
+rule_pack_provenance(pack)
+```
