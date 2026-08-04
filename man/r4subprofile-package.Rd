@@ -6,18 +6,19 @@
 \alias{r4subprofile-package}
 \title{r4subprofile: Regulatory Submission Profiles for Clinical Submission Readiness}
 \description{
-Defines submission profiles per regulatory authority with authority-specific pillar weights, decision thresholds, indicator requirements, and risk configuration. Supports FDA, EMA, PMDA, Health Canada, TGA, and MHRA. Integrates with 'r4subscore' and 'r4subrisk' configuration systems.
+Defines submission profiles per regulatory authority with authority-specific pillar weights, decision thresholds, indicator requirements, and risk configuration. Supports the U.S. Food and Drug Administration (FDA), European Medicines Agency (EMA), Pharmaceuticals and Medical Devices Agency (PMDA), Health Canada, Therapeutic Goods Administration (TGA), and Medicines and Healthcare products Regulatory Agency (MHRA). Integrates with 'r4subscore' and 'r4subrisk' configuration systems.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://r4sub.github.io/r4subprofile/}
   \item \url{https://github.com/R4SUB/r4subprofile}
   \item Report bugs at \url{https://github.com/R4SUB/r4subprofile/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Pawan Rama Mali \email{prm@outlook.in}
+\strong{Maintainer}: Pawan Rama Mali \email{prm@outlook.in} (\href{https://orcid.org/0000-0001-7864-5819}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
