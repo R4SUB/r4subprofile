@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/R4SUB/r4subprofile/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/R4SUB/r4subprofile/blob/v0.1.1/DESCRIPTION)
 
 Mali P (2026). *r4subprofile: Regulatory Submission Profiles for
 Clinical Submission Readiness*. R package version 0.1.1,
