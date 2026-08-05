@@ -1,5 +1,5 @@
 Package: r4subprofile
-Title: Regulatory Submission Profiles for Clinical Submission Readiness
+Title: Regulatory Authority Profiles for Submission Readiness
 Version: 0.2.0
 Authors@R:
     person("Pawan Rama", "Mali", email = "prm@outlook.in",
