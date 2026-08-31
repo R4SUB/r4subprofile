@@ -1,3 +1,13 @@
+# r4subprofile 0.3.0
+
+- Add `compare_authorities()`, a side-by-side comparison of submission profiles
+  across regulatory authorities: pillar weights, the SCI needed to be ready,
+  minimum coverage, the number of required indicators, and the detectability
+  default. A sponsor filing in more than one region can see how the readiness
+  bar changes between, say, the FDA and the EMA without building and reading
+  each profile by hand. Authority names match case-insensitively and the
+  submission type can be chosen per authority.
+
 # r4subprofile 0.2.0
 
 - Add versioned rule packs: `rule_packs()` lists the available packs,
