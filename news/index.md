@@ -1,5 +1,41 @@
 # Changelog
 
+## r4subprofile 0.3.1
+
+- Fix the pkgdown reference index: drop stale print entries and add the
+  rule-pack topics so the site builds.
+
+## r4subprofile 0.3.0
+
+- Add
+  [`compare_authorities()`](https://r4sub.github.io/r4subprofile/reference/compare_authorities.md),
+  a side-by-side comparison of submission profiles across regulatory
+  authorities: pillar weights, the SCI needed to be ready, minimum
+  coverage, the number of required indicators, and the detectability
+  default. A sponsor filing in more than one region can see how the
+  readiness bar changes between, say, the FDA and the EMA without
+  building and reading each profile by hand. Authority names match
+  case-insensitively and the submission type can be chosen per
+  authority.
+
+## r4subprofile 0.2.0
+
+- Add versioned rule packs:
+  [`rule_packs()`](https://r4sub.github.io/r4subprofile/reference/rule_packs.md)
+  lists the available packs,
+  [`rule_pack()`](https://r4sub.github.io/r4subprofile/reference/rule_pack.md)
+  selects one by id (for example `"fda-2026.1"`) with an authority, a
+  version, and an effective date,
+  [`rule_pack_indicators()`](https://r4sub.github.io/r4subprofile/reference/rule_pack_indicators.md)
+  returns its indicators, and
+  [`rule_pack_provenance()`](https://r4sub.github.io/r4subprofile/reference/rule_pack_provenance.md)
+  returns the identifying fields to record on a scored result so a score
+  can be traced to the exact ruleset that produced it. Each indicator
+  carries a `source` field for its authoritative citation; the built-in
+  packs ship these as `NA` (pending entry from a controlled reference
+  list rather than filled with unverified section numbers) and they can
+  be supplied through the `sources` argument.
+
 ## r4subprofile 0.1.1
 
 - Add vignette: “Regulatory Authority Profiles” covering

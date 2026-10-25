@@ -195,3 +195,70 @@ pmda_nda_p3$pillar_weights
 #>   quality     trace      risk usability 
 #>      0.25      0.30      0.25      0.20
 ```
+
+## Versioned rule packs
+
+A profile answers “what does this authority require”. A rule pack pins
+that to a named, dated version, so a score can be reproduced and
+compared over time as guidance changes.
+[`rule_packs()`](https://r4sub.github.io/r4subprofile/reference/rule_packs.md)
+lists what is available:
+
+``` r
+
+library(r4subprofile)
+rule_packs()
+#> # A tibble: 2 × 5
+#>   id         authority version effective_date n_indicators
+#>   <chr>      <chr>     <chr>   <chr>                 <int>
+#> 1 fda-2026.1 FDA       2026.1  2026-01-01               15
+#> 2 ema-2026.1 EMA       2026.1  2026-01-01               15
+```
+
+Select one by id. Each indicator carries a `source` field for its
+authoritative citation:
+
+``` r
+
+pack <- rule_pack("fda-2026.1")
+pack
+#> ℹ Rule pack "fda-2026.1": FDA, version 2026.1, effective 2026-01-01
+#> ℹ   15 indicators, 0 with a source citation
+head(rule_pack_indicators(pack))
+#> # A tibble: 6 × 2
+#>   indicator_id    source
+#>   <chr>           <chr> 
+#> 1 Q-DUP-RECORDS   NA    
+#> 2 Q-FORMAT-ERR    NA    
+#> 3 Q-LABEL-LEN     NA    
+#> 4 Q-MISS-VAR      NA    
+#> 5 Q-TYPE-MISMATCH NA    
+#> 6 R-HIGH-RPN      NA
+```
+
+The built-in packs ship with `source` set to `NA`: the citations are
+left for entry from a controlled regulatory reference list, rather than
+filled with unverified section numbers. Supply them when you have them:
+
+``` r
+
+pack <- rule_pack(
+  "fda-2026.1",
+  sources = c("Q-MISS-VAR" = "FDA Study Data Technical Conformance Guide")
+)
+subset(rule_pack_indicators(pack), !is.na(source))
+#> # A tibble: 1 × 2
+#>   indicator_id source                                    
+#>   <chr>        <chr>                                     
+#> 1 Q-MISS-VAR   FDA Study Data Technical Conformance Guide
+```
+
+Record the pack on a scored result so the score can always be traced
+back to the exact ruleset and version that produced it:
+
+``` r
+
+rule_pack_provenance(pack)
+#>         rule_pack rule_pack_version    effective_date 
+#>      "fda-2026.1"          "2026.1"      "2026-01-01"
+```

@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">r4subprofile</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
       <h1>Regulatory Authority Profiles</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/R4SUB/r4subprofile/blob/v0.1.1/vignettes/authority-profiles.Rmd" class="external-link"><code>vignettes/authority-profiles.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R4SUB/r4subprofile/blob/main/vignettes/authority-profiles.Rmd" class="external-link"><code>vignettes/authority-profiles.Rmd</code></a></small>
       <div class="d-none name"><code>authority-profiles.Rmd</code></div>
     </div>
 
@@ -236,6 +236,59 @@ against the profile’s required indicators and asset types:</p>
 <span><span class="va">pmda_nda_p3</span><span class="op">$</span><span class="va">pillar_weights</span></span>
 <span><span class="co">#&gt;   quality     trace      risk usability </span></span>
 <span><span class="co">#&gt;      0.25      0.30      0.25      0.20</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="versioned-rule-packs">Versioned rule packs<a class="anchor" aria-label="anchor" href="#versioned-rule-packs"></a>
+</h2>
+<p>A profile answers “what does this authority require”. A rule pack
+pins that to a named, dated version, so a score can be reproduced and
+compared over time as guidance changes. <code><a href="../reference/rule_packs.html">rule_packs()</a></code> lists
+what is available:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4subprofile/">r4subprofile</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/rule_packs.html">rule_packs</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
+<span><span class="co">#&gt;   id         authority version effective_date n_indicators</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fda-2026.1 FDA       2026.1  2026-01-01               15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ema-2026.1 EMA       2026.1  2026-01-01               15</span></span></code></pre></div>
+<p>Select one by id. Each indicator carries a <code>source</code> field
+for its authoritative citation:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule_pack.html">rule_pack</a></span><span class="op">(</span><span class="st">"fda-2026.1"</span><span class="op">)</span></span>
+<span><span class="va">pack</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Rule pack <span style="color: #0000BB;">"fda-2026.1"</span>: FDA, version 2026.1, effective 2026-01-01</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span>   15 indicators, 0 with a source citation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/rule_pack_indicators.html">rule_pack_indicators</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">#&gt;   indicator_id    source</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Q-DUP-RECORDS   <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Q-FORMAT-ERR    <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Q-LABEL-LEN     <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Q-MISS-VAR      <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Q-TYPE-MISMATCH <span style="color: #BB0000;">NA</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> R-HIGH-RPN      <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
+<p>The built-in packs ship with <code>source</code> set to
+<code>NA</code>: the citations are left for entry from a controlled
+regulatory reference list, rather than filled with unverified section
+numbers. Supply them when you have them:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule_pack.html">rule_pack</a></span><span class="op">(</span></span>
+<span>  <span class="st">"fda-2026.1"</span>,</span>
+<span>  sources <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Q-MISS-VAR"</span> <span class="op">=</span> <span class="st">"FDA Study Data Technical Conformance Guide"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="fu"><a href="../reference/rule_pack_indicators.html">rule_pack_indicators</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">source</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#&gt;   indicator_id source                                    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Q-MISS-VAR   FDA Study Data Technical Conformance Guide</span></span></code></pre></div>
+<p>Record the pack on a scored result so the score can always be traced
+back to the exact ruleset and version that produced it:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rule_pack_provenance.html">rule_pack_provenance</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         rule_pack rule_pack_version    effective_date </span></span>
+<span><span class="co">#&gt;      "fda-2026.1"          "2026.1"      "2026-01-01"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

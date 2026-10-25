@@ -82,6 +82,17 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 | [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md) | Check evidence completeness vs profile |
 | [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md) | Tidy tibble summary of a profile |
 
+## Maintained by
+
+R4SUB is part of the open-source work of
+[TechWorksLab](https://techworkslab.com) - clinical programming and
+regulatory submissions. Maintainer: Pawan Rama Mali.
+
 ## License
 
 MIT
+
+## Further reading
+
+- [R4SUB articles on the TECHWORKSLAB
+  blog](https://techworkslab.com/insights)

@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/R4SUB/r4subprofile/blob/v0.1.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/R4SUB/r4subprofile/blob/main/DESCRIPTION)
 
-Mali P (2026). *r4subprofile: Regulatory Submission Profiles for
-Clinical Submission Readiness*. R package version 0.1.1,
+Mali P (2026). *r4subprofile: Regulatory Authority Profiles for
+Submission Readiness*. R package version 0.3.1,
 <https://r4sub.github.io/r4subprofile/>.
 
     @Manual{,
-      title = {r4subprofile: Regulatory Submission Profiles for Clinical Submission Readiness},
+      title = {r4subprofile: Regulatory Authority Profiles for Submission Readiness},
       author = {Pawan Rama Mali},
       year = {2026},
-      note = {R package version 0.1.1},
+      note = {R package version 0.3.1},
       url = {https://r4sub.github.io/r4subprofile/},
     }

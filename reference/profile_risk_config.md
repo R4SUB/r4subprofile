@@ -1,7 +1,7 @@
 # Extract Risk Configuration from a Profile
 
 Returns a list with structure compatible with
-[`r4subrisk::risk_config_default()`](https://rdrr.io/pkg/r4subrisk/man/risk_config_default.html).
+[`r4subrisk::risk_config_default()`](https://r4sub.github.io/r4subrisk/reference/risk_config_default.html).
 Can be passed directly to risk assessment functions.
 
 ## Usage

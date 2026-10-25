@@ -1,11 +1,11 @@
 # Extract SCI Configuration from a Profile
 
 Returns a list with structure compatible with
-[`r4subscore::sci_config_default()`](https://rdrr.io/pkg/r4subscore/man/sci_config_default.html).
+[`r4subscore::sci_config_default()`](https://r4sub.github.io/r4subscore/reference/sci_config_default.html).
 Can be passed directly to
-[`compute_pillar_scores()`](https://rdrr.io/pkg/r4subscore/man/compute_pillar_scores.html)
+[`compute_pillar_scores()`](https://r4sub.github.io/r4subscore/reference/compute_pillar_scores.html)
 or
-[`compute_sci()`](https://rdrr.io/pkg/r4subscore/man/compute_sci.html).
+[`compute_sci()`](https://r4sub.github.io/r4subscore/reference/compute_sci.html).
 
 ## Usage
 

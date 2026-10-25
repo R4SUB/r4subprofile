@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">r4subprofile</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,21 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/R4SUB/r4subprofile/blob/v0.1.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/R4SUB/r4subprofile/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.1" id="r4subprofile-031">r4subprofile 0.3.1<a class="anchor" aria-label="anchor" href="#r4subprofile-031"></a></h2>
+<ul><li>Fix the pkgdown reference index: drop stale print entries and add the rule-pack topics so the site builds.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="r4subprofile-030">r4subprofile 0.3.0<a class="anchor" aria-label="anchor" href="#r4subprofile-030"></a></h2>
+<ul><li>Add <code><a href="../reference/compare_authorities.html">compare_authorities()</a></code>, a side-by-side comparison of submission profiles across regulatory authorities: pillar weights, the SCI needed to be ready, minimum coverage, the number of required indicators, and the detectability default. A sponsor filing in more than one region can see how the readiness bar changes between, say, the FDA and the EMA without building and reading each profile by hand. Authority names match case-insensitively and the submission type can be chosen per authority.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="r4subprofile-020">r4subprofile 0.2.0<a class="anchor" aria-label="anchor" href="#r4subprofile-020"></a></h2>
+<ul><li>Add versioned rule packs: <code><a href="../reference/rule_packs.html">rule_packs()</a></code> lists the available packs, <code><a href="../reference/rule_pack.html">rule_pack()</a></code> selects one by id (for example <code>"fda-2026.1"</code>) with an authority, a version, and an effective date, <code><a href="../reference/rule_pack_indicators.html">rule_pack_indicators()</a></code> returns its indicators, and <code><a href="../reference/rule_pack_provenance.html">rule_pack_provenance()</a></code> returns the identifying fields to record on a scored result so a score can be traced to the exact ruleset that produced it. Each indicator carries a <code>source</code> field for its authoritative citation; the built-in packs ship these as <code>NA</code> (pending entry from a controlled reference list rather than filled with unverified section numbers) and they can be supplied through the <code>sources</code> argument.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="r4subprofile-011">r4subprofile 0.1.1<a class="anchor" aria-label="anchor" href="#r4subprofile-011"></a></h2>
 <ul><li>Add vignette: “Regulatory Authority Profiles” covering <code><a href="../reference/submission_profile.html">submission_profile()</a></code>, <code><a href="../reference/profile_summary.html">profile_summary()</a></code>, <code><a href="../reference/validate_against_profile.html">validate_against_profile()</a></code>, and authority weight comparisons.</li>
