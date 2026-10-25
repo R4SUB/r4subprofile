@@ -1,3 +1,7 @@
+# r4subprofile 0.3.1
+
+- Fix the pkgdown reference index: drop stale print entries and add the rule-pack topics so the site builds.
+
 # r4subprofile 0.3.0
 
 - Add `compare_authorities()`, a side-by-side comparison of submission profiles
