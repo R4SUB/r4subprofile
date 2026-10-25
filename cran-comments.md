@@ -1,6 +1,6 @@
 ## Submission
 
-This is an update of r4subprofile from 0.1.0 (on CRAN) to 0.2.0, a feature
+This is an update of r4subprofile from 0.1.0 (on CRAN) to 0.3.1, a feature
 release for the R4SUB (Ready for Submission) ecosystem. It adds versioned,
 source-cited regulatory rule packs: `rule_packs()`, `rule_pack()`,
 `rule_pack_indicators()`, and `rule_pack_provenance()`. See NEWS.md.

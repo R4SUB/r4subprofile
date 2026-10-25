@@ -18,7 +18,7 @@ navbar:
       aria-label: GitHub
 
 home:
-  title: "r4subprofile — Regulatory Authority Profiles"
+  title: "r4subprofile: Regulatory Authority Profiles"
 
 reference:
   - title: "Profiles"
@@ -29,14 +29,17 @@ reference:
       - profile_required_indicators
       - profile_risk_config
       - profile_sci_config
+  - title: "Rule packs"
+    contents:
+      - rule_pack
+      - rule_packs
+      - rule_pack_indicators
+      - rule_pack_provenance
   - title: "Discovery"
     contents:
       - list_authorities
       - list_submission_types
-  - title: "Print Methods"
-    contents:
-      - print.profile_validation
-      - print.submission_profile
+      - compare_authorities
 
 footer:
   structure:
