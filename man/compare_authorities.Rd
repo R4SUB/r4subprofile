@@ -4,7 +4,11 @@
 \alias{compare_authorities}
 \title{Compare Submission Profiles Across Authorities}
 \usage{
-compare_authorities(authorities = NULL, submission_types = NULL)
+compare_authorities(
+  authorities = NULL,
+  submission_types = NULL,
+  rank_by = NULL
+)
 }
 \arguments{
 \item{authorities}{Character vector of authority names, matched
@@ -16,6 +20,13 @@ every supported authority from \code{\link[=list_authorities]{list_authorities()
 for every authority (and errors if one does not offer it). A named vector
 (\code{c(FDA = "NDA", EMA = "MAA")}) selects per authority, falling back to the
 first type for any authority not named.}
+
+\item{rank_by}{Optional single string naming a strictness measure to order
+the result by, from highest (strictest) to lowest. \code{NULL} (default) leaves
+the output and its ordering exactly as they are without this argument. One
+of \code{"minimum_coverage"}, \code{"ready_min"}, or \code{"n_required_indicators"}. When
+set, rows are reordered by that measure (ties keep their original order) and
+the result gains the additive columns described below.}
 }
 \value{
 A tibble with one row per authority and columns \code{authority},
@@ -23,6 +34,12 @@ A tibble with one row per authority and columns \code{authority},
 (\code{w_quality}, \code{w_trace}, \code{w_risk}, \code{w_usability}), \code{ready_min} (lowest SCI
 in the ready band), \code{minimum_coverage}, \code{n_required_indicators},
 \code{default_detectability}, and \code{required_asset_types}.
+
+When \code{rank_by} is supplied the same columns are returned, reordered by the
+chosen measure, plus these additive columns: \code{strictness_rank} (1 for the
+strictest authority on the measure, with tied values sharing a rank) and the
+remaining decision-band floors \code{minor_gaps_min} and \code{conditional_min}, which
+complete the band picture alongside \code{ready_min}. No existing value changes.
 }
 \description{
 Puts several regulatory authorities side by side so a sponsor filing in more
@@ -31,6 +48,11 @@ score needed to be ready, the minimum traceability coverage, how many
 indicators are required, and the detectability default that feeds risk
 scoring. It answers "what changes if we also file with the EMA" without
 building and eyeballing each profile by hand.
+}
+\details{
+Pass \code{rank_by} to order the authorities from strictest to most lenient on a
+chosen measure. Ranking only reorders rows and adds columns; it never changes
+any weight, threshold, or other configured value.
 }
 \examples{
 compare_authorities(c("FDA", "EMA", "PMDA"))
@@ -41,5 +63,11 @@ compare_authorities(
   c("FDA", "EMA"),
   submission_types = c(FDA = "NDA", EMA = "MAA")
 )
+
+# Rank authorities from strictest to most lenient on required coverage:
+compare_authorities(rank_by = "minimum_coverage")
+
+# Or by how many indicators each requires:
+compare_authorities(c("FDA", "EMA", "PMDA"), rank_by = "n_required_indicators")
 
 }
