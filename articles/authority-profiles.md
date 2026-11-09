@@ -82,7 +82,8 @@ weights_df
 ## Profile summary
 
 [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)
-returns a tidy tibble summarising the profile:
+prints a formatted summary of the profile and returns the profile
+invisibly:
 
 ``` r
 
