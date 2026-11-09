@@ -64,7 +64,8 @@ weights_df
 
 ## Profile summary
 
-`profile_summary()` returns a tidy tibble summarising the profile:
+`profile_summary()` prints a formatted summary of the profile and returns the
+profile invisibly:
 
 ```{r profile-summary}
 profile_summary(fda_nda)
