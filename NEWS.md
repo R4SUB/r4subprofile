@@ -1,6 +1,10 @@
 # r4subprofile 0.3.1
 
 - Fix the pkgdown reference index: drop stale print entries and add the rule-pack topics so the site builds.
+- Docs: correct the description of `profile_summary()` in the vignette and the
+  README; it prints a formatted summary and returns the profile invisibly, it
+  does not return a tibble. Add `compare_authorities()` to the README function
+  table.
 
 # r4subprofile 0.3.0
 
