@@ -67,3 +67,62 @@ test_that("ready_min and coverage come through as numbers", {
   expect_equal(cmp$minimum_coverage, 0.75)
   expect_equal(cmp$n_required_indicators, 6L)
 })
+
+test_that("rank_by = NULL leaves the default output unchanged", {
+  base_cols <- c(
+    "authority", "full_name", "country", "submission_type",
+    "w_quality", "w_trace", "w_risk", "w_usability",
+    "ready_min", "minimum_coverage", "n_required_indicators",
+    "default_detectability", "required_asset_types"
+  )
+  cmp <- compare_authorities()
+  # Default call carries exactly the original columns, in order, and no rank
+  # columns leak in.
+  expect_identical(names(cmp), base_cols)
+  expect_false("strictness_rank" %in% names(cmp))
+  # Explicit NULL is identical to the implicit default.
+  expect_identical(compare_authorities(rank_by = NULL), cmp)
+})
+
+test_that("rank_by orders authorities strictest first and adds columns", {
+  cmp <- compare_authorities(rank_by = "minimum_coverage")
+  # Rows are ordered by the measure, descending.
+  expect_true(all(diff(cmp$minimum_coverage) <= 0))
+  # Additive columns are present.
+  expect_true(all(c("strictness_rank", "minor_gaps_min", "conditional_min") %in%
+                    names(cmp)))
+  # Strictest authority ranks first.
+  expect_equal(cmp$strictness_rank[1], 1L)
+  expect_equal(cmp$minimum_coverage[1], max(cmp$minimum_coverage))
+})
+
+test_that("ranking reorders rows but changes no existing value", {
+  base_cols <- c(
+    "authority", "full_name", "country", "submission_type",
+    "w_quality", "w_trace", "w_risk", "w_usability",
+    "ready_min", "minimum_coverage", "n_required_indicators",
+    "default_detectability", "required_asset_types"
+  )
+  base <- compare_authorities(c("FDA", "EMA", "PMDA"))
+  ranked <- compare_authorities(c("FDA", "EMA", "PMDA"),
+                                rank_by = "n_required_indicators")
+  # Same set of authorities, same shared columns, values preserved after a
+  # reordering join.
+  expect_setequal(ranked$authority, base$authority)
+  reord <- ranked[match(base$authority, ranked$authority), base_cols]
+  expect_equal(as.data.frame(reord), as.data.frame(base[, base_cols]))
+})
+
+test_that("ties in the ranking measure share a rank and keep original order", {
+  # FDA (IND) and EMA (CTA) both require coverage 0.70.
+  cmp <- compare_authorities(c("FDA", "EMA"), rank_by = "minimum_coverage")
+  expect_equal(cmp$minimum_coverage, c(0.70, 0.70))
+  expect_equal(cmp$strictness_rank, c(1L, 1L))
+  expect_equal(cmp$authority, c("FDA", "EMA"))
+})
+
+test_that("an unknown rank_by value is rejected", {
+  expect_error(compare_authorities(rank_by = "not_a_measure"), "Unknown")
+  expect_error(compare_authorities(rank_by = c("ready_min", "minimum_coverage")),
+               "single string")
+})
