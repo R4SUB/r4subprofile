@@ -125,6 +125,28 @@ profile_summary(fda_nda)
 #>   Default Detectability: 3
 ```
 
+Pass `format = "tibble"` to get the same information as a tidy,
+one-row-per-field tibble that can be filtered, joined, or written out:
+
+``` r
+
+profile_summary(fda_nda, format = "tibble")
+#> # A tibble: 21 × 2
+#>    field                   value                            
+#>    <chr>                   <chr>                            
+#>  1 authority               FDA                              
+#>  2 full_name               U.S. Food and Drug Administration
+#>  3 country                 United States                    
+#>  4 submission_type         NDA                              
+#>  5 study_phase             NA                               
+#>  6 pillar_weight_quality   0.35                             
+#>  7 pillar_weight_trace     0.25                             
+#>  8 pillar_weight_risk      0.25                             
+#>  9 pillar_weight_usability 0.15                             
+#> 10 band_ready              85-100                           
+#> # ℹ 11 more rows
+```
+
 ## Validating evidence against a profile
 
 [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md)

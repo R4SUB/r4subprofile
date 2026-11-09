@@ -1,5 +1,18 @@
 # Changelog
 
+## r4subprofile (development version)
+
+- [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)
+  gains a `format` argument. The default `"console"` keeps the printed,
+  invisibly-returned behavior; `"tibble"` returns a tidy
+  one-row-per-field tibble of the profile, so a summary can be filtered,
+  joined, or written out programmatically.
+- Add an internal structural check over the authority configuration,
+  wired into the test suite: for every authority and submission type it
+  asserts that pillar weights sum to 1, decision bands are contiguous
+  and cover 0-100, and RPN bands cover 1-125. It validates structure
+  only and changes no configured values.
+
 ## r4subprofile 0.3.1
 
 - Fix the pkgdown reference index: drop stale print entries and add the

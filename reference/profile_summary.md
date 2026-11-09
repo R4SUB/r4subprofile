@@ -1,12 +1,16 @@
 # Summarize a Submission Profile
 
-Prints a formatted summary of a regulatory submission profile including
-authority details, pillar weights, decision bands, and requirements.
+Summarizes a regulatory submission profile. The default `"console"`
+format prints a human-readable summary (authority details, pillar
+weights, decision bands, and requirements) and returns the profile
+invisibly. The `"tibble"` format instead returns a tidy,
+one-row-per-field tibble of the same information, so a summary can be
+filtered, joined, or written out programmatically.
 
 ## Usage
 
 ``` r
-profile_summary(profile)
+profile_summary(profile, format = c("console", "tibble"))
 ```
 
 ## Arguments
@@ -15,14 +19,23 @@ profile_summary(profile)
 
   A `submission_profile` object.
 
+- format:
+
+  One of `"console"` (default) or `"tibble"`. `"console"` keeps the
+  printed-and-invisible behavior; `"tibble"` returns a tidy tibble.
+
 ## Value
 
-The profile object, invisibly.
+For `format = "console"`, the profile object, invisibly. For
+`format = "tibble"`, a tibble with one row per profile field and columns
+`field` and `value` (character).
 
 ## Examples
 
 ``` r
 prof <- submission_profile("FDA", "NDA")
+
+# Printed summary (returns the profile invisibly):
 profile_summary(prof)
 #> ℹ Submission Profile: FDA NDA
 #>   Authority:    U.S. Food and Drug Administration (United States)
@@ -59,4 +72,21 @@ profile_summary(prof)
 #>   Required Asset Types: dataset, define, program, validation, spec
 #>   Minimum Coverage:     90%
 #>   Default Detectability: 3
+
+# Tidy tibble for programmatic use:
+profile_summary(prof, format = "tibble")
+#> # A tibble: 21 × 2
+#>    field                   value                            
+#>    <chr>                   <chr>                            
+#>  1 authority               FDA                              
+#>  2 full_name               U.S. Food and Drug Administration
+#>  3 country                 United States                    
+#>  4 submission_type         NDA                              
+#>  5 study_phase             NA                               
+#>  6 pillar_weight_quality   0.35                             
+#>  7 pillar_weight_trace     0.25                             
+#>  8 pillar_weight_risk      0.25                             
+#>  9 pillar_weight_usability 0.15                             
+#> 10 band_ready              85-100                           
+#> # ℹ 11 more rows
 ```
