@@ -71,6 +71,13 @@ profile invisibly:
 profile_summary(fda_nda)
 ```
 
+Pass `format = "tibble"` to get the same information as a tidy, one-row-per-field
+tibble that can be filtered, joined, or written out:
+
+```{r profile-summary-tibble}
+profile_summary(fda_nda, format = "tibble")
+```
+
 ## Validating evidence against a profile
 
 `validate_against_profile()` checks an evidence table against the
