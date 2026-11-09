@@ -4,20 +4,34 @@
 \alias{profile_summary}
 \title{Summarize a Submission Profile}
 \usage{
-profile_summary(profile)
+profile_summary(profile, format = c("console", "tibble"))
 }
 \arguments{
 \item{profile}{A \code{submission_profile} object.}
+
+\item{format}{One of \code{"console"} (default) or \code{"tibble"}. \code{"console"} keeps
+the printed-and-invisible behavior; \code{"tibble"} returns a tidy tibble.}
 }
 \value{
-The profile object, invisibly.
+For \code{format = "console"}, the profile object, invisibly. For
+\code{format = "tibble"}, a tibble with one row per profile field and columns
+\code{field} and \code{value} (character).
 }
 \description{
-Prints a formatted summary of a regulatory submission profile including
-authority details, pillar weights, decision bands, and requirements.
+Summarizes a regulatory submission profile. The default \code{"console"} format
+prints a human-readable summary (authority details, pillar weights, decision
+bands, and requirements) and returns the profile invisibly. The \code{"tibble"}
+format instead returns a tidy, one-row-per-field tibble of the same
+information, so a summary can be filtered, joined, or written out
+programmatically.
 }
 \examples{
 prof <- submission_profile("FDA", "NDA")
+
+# Printed summary (returns the profile invisibly):
 profile_summary(prof)
+
+# Tidy tibble for programmatic use:
+profile_summary(prof, format = "tibble")
 
 }
