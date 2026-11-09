@@ -2,6 +2,14 @@
 
 ## r4subprofile (development version)
 
+- [`compare_authorities()`](https://r4sub.github.io/r4subprofile/reference/compare_authorities.md)
+  gains an optional `rank_by` argument. The default `NULL` leaves the
+  output and its ordering exactly as before. Set to
+  `"minimum_coverage"`, `"ready_min"`, or `"n_required_indicators"` it
+  orders the authorities from strictest to most lenient on that measure
+  and adds the additive columns `strictness_rank`, `minor_gaps_min`, and
+  `conditional_min`. Ranking only reorders rows and adds columns; no
+  weight, threshold, or other configured value changes.
 - [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)
   gains a `format` argument. The default `"console"` keeps the printed,
   invisibly-returned behavior; `"tibble"` returns a tidy
