@@ -79,8 +79,8 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 | `profile_risk_config()` | Extract risk config (r4subrisk compatible) |
 | `profile_required_indicators()` | Get mandatory indicators for a profile |
 | `validate_against_profile()` | Check evidence completeness vs profile |
-| `profile_summary()` | Summarize a profile (printed, or as a tidy tibble) |
-| `compare_authorities()` | Compare profiles across authorities side by side |
+| `profile_summary()` | Summarize a profile (printed, or as a tidy tibble with `format = "tibble"`) |
+| `compare_authorities()` | Compare profiles across authorities side by side (optionally ranked by strictness with `rank_by`) |
 
 ## Maintained by
 
