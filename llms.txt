@@ -80,8 +80,8 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 | [`profile_risk_config()`](https://r4sub.github.io/r4subprofile/reference/profile_risk_config.md) | Extract risk config (r4subrisk compatible) |
 | [`profile_required_indicators()`](https://r4sub.github.io/r4subprofile/reference/profile_required_indicators.md) | Get mandatory indicators for a profile |
 | [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md) | Check evidence completeness vs profile |
-| [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md) | Summarize a profile (printed, or as a tidy tibble) |
-| [`compare_authorities()`](https://r4sub.github.io/r4subprofile/reference/compare_authorities.md) | Compare profiles across authorities side by side |
+| [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md) | Summarize a profile (printed, or as a tidy tibble with `format = "tibble"`) |
+| [`compare_authorities()`](https://r4sub.github.io/r4subprofile/reference/compare_authorities.md) | Compare profiles across authorities side by side (optionally ranked by strictness with `rank_by`) |
 
 ## Maintained by
 
