@@ -73,6 +73,7 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 | Function | Purpose |
 |---|---|
 | `submission_profile()` | Create a regulatory submission profile |
+| `custom_profile()` | Build a profile from caller-supplied values (no built-in numbers) |
 | `list_authorities()` | List all supported regulatory authorities |
 | `list_submission_types()` | List valid submission types for an authority |
 | `profile_sci_config()` | Extract SCI config (r4subscore compatible) |
