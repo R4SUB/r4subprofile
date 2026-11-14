@@ -1,5 +1,14 @@
 # r4subprofile (development version)
 
+- Add `custom_profile()`, a builder for a `submission_profile` from
+  caller-supplied values. Every regulatory quantity (pillar weights, decision
+  bands, required indicators and asset types, minimum coverage, RPN bands,
+  detectability) is a required argument with no default, so the function invents
+  no weights or thresholds of its own; it validates the supplied structure with
+  the same invariants applied to the shipped profiles and returns an ordinary
+  `submission_profile` that works with every existing accessor. This lets a
+  sponsor score against an internal, regional, or not-yet-shipped ruleset whose
+  numbers come from their own authoritative source.
 - `compare_authorities()` gains an optional `rank_by` argument. The default
   `NULL` leaves the output and its ordering exactly as before. Set to
   `"minimum_coverage"`, `"ready_min"`, or `"n_required_indicators"` it orders the

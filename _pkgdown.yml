@@ -24,6 +24,7 @@ reference:
   - title: "Profiles"
     contents:
       - submission_profile
+      - custom_profile
       - profile_summary
       - validate_against_profile
       - profile_required_indicators
