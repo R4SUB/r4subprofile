@@ -74,6 +74,7 @@ sci           <- compute_sci(pillar_scores, config = profile_sci_config(prof))
 | Function | Purpose |
 |----|----|
 | [`submission_profile()`](https://r4sub.github.io/r4subprofile/reference/submission_profile.md) | Create a regulatory submission profile |
+| [`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md) | Build a profile from caller-supplied values (no built-in numbers) |
 | [`list_authorities()`](https://r4sub.github.io/r4subprofile/reference/list_authorities.md) | List all supported regulatory authorities |
 | [`list_submission_types()`](https://r4sub.github.io/r4subprofile/reference/list_submission_types.md) | List valid submission types for an authority |
 | [`profile_sci_config()`](https://r4sub.github.io/r4subprofile/reference/profile_sci_config.md) | Extract SCI config (r4subscore compatible) |

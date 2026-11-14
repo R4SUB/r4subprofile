@@ -147,6 +147,53 @@ profile_summary(fda_nda, format = "tibble")
 #> # ℹ 11 more rows
 ```
 
+## Building your own profile
+
+The shipped authorities cover the common filings, but a sponsor
+sometimes needs to score against an internal gate, a regional ruleset,
+or guidance that is not yet packaged.
+[`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md)
+builds a profile from values you supply. Every regulatory quantity is a
+required argument with no default, so the package invents no weights or
+thresholds; you provide the numbers from your own authoritative source,
+and the structure is validated the same way the built-in profiles are
+(weights sum to 1, bands contiguous and covering their range):
+
+``` r
+
+internal <- custom_profile(
+  authority = "Internal",
+  submission_type = "Gate2",
+  pillar_weights = c(quality = 0.40, trace = 0.20, risk = 0.30, usability = 0.10),
+  bands = list(
+    ready = c(85, 100), minor_gaps = c(70, 84),
+    conditional = c(50, 69), high_risk = c(0, 49)
+  ),
+  required_indicators = c("Q-MISS-VAR", "T-TRACE-LEVEL", "R-HIGH-RPN"),
+  required_asset_types = c("dataset", "define"),
+  minimum_coverage = 0.80,
+  rpn_bands = list(
+    critical = c(80, 125), high = c(40, 79),
+    medium = c(15, 39), low = c(1, 14)
+  ),
+  default_detectability = 3L
+)
+internal
+#> Submission Profile: Internal Gate2
+#>   Authority: Internal (NA)
+#>   Pillar Weights: quality=0.40, trace=0.20, risk=0.30, usability=0.10
+#>   Ready Band: [85, 100]
+#>   Required Indicators: 3
+#>   Required Asset Types: dataset, define
+#>   Minimum Coverage: 80%
+```
+
+The result is an ordinary `submission_profile`, so it flows into every
+function in the package, including
+[`profile_sci_config()`](https://r4sub.github.io/r4subprofile/reference/profile_sci_config.md)
+and
+[`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md).
+
 ## Validating evidence against a profile
 
 [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md)

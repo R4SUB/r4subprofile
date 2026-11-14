@@ -193,11 +193,53 @@ out:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="building-your-own-profile">Building your own profile<a class="anchor" aria-label="anchor" href="#building-your-own-profile"></a>
+</h2>
+<p>The shipped authorities cover the common filings, but a sponsor
+sometimes needs to score against an internal gate, a regional ruleset,
+or guidance that is not yet packaged. <code><a href="../reference/custom_profile.html">custom_profile()</a></code>
+builds a profile from values you supply. Every regulatory quantity is a
+required argument with no default, so the package invents no weights or
+thresholds; you provide the numbers from your own authoritative source,
+and the structure is validated the same way the built-in profiles are
+(weights sum to 1, bands contiguous and covering their range):</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">internal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/custom_profile.html">custom_profile</a></span><span class="op">(</span></span>
+<span>  authority <span class="op">=</span> <span class="st">"Internal"</span>,</span>
+<span>  submission_type <span class="op">=</span> <span class="st">"Gate2"</span>,</span>
+<span>  pillar_weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>quality <span class="op">=</span> <span class="fl">0.40</span>, trace <span class="op">=</span> <span class="fl">0.20</span>, risk <span class="op">=</span> <span class="fl">0.30</span>, usability <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span>,</span>
+<span>  bands <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    ready <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>, <span class="fl">100</span><span class="op">)</span>, minor_gaps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">84</span><span class="op">)</span>,</span>
+<span>    conditional <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">69</span><span class="op">)</span>, high_risk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">49</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  required_indicators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Q-MISS-VAR"</span>, <span class="st">"T-TRACE-LEVEL"</span>, <span class="st">"R-HIGH-RPN"</span><span class="op">)</span>,</span>
+<span>  required_asset_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dataset"</span>, <span class="st">"define"</span><span class="op">)</span>,</span>
+<span>  minimum_coverage <span class="op">=</span> <span class="fl">0.80</span>,</span>
+<span>  rpn_bands <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    critical <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">125</span><span class="op">)</span>, high <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">79</span><span class="op">)</span>,</span>
+<span>    medium <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">39</span><span class="op">)</span>, low <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">14</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  default_detectability <span class="op">=</span> <span class="fl">3L</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">internal</span></span>
+<span><span class="co">#&gt; Submission Profile: Internal Gate2</span></span>
+<span><span class="co">#&gt;   Authority: Internal (NA)</span></span>
+<span><span class="co">#&gt;   Pillar Weights: quality=0.40, trace=0.20, risk=0.30, usability=0.10</span></span>
+<span><span class="co">#&gt;   Ready Band: [85, 100]</span></span>
+<span><span class="co">#&gt;   Required Indicators: 3</span></span>
+<span><span class="co">#&gt;   Required Asset Types: dataset, define</span></span>
+<span><span class="co">#&gt;   Minimum Coverage: 80%</span></span></code></pre></div>
+<p>The result is an ordinary <code>submission_profile</code>, so it
+flows into every function in the package, including
+<code><a href="../reference/profile_sci_config.html">profile_sci_config()</a></code> and
+<code><a href="../reference/validate_against_profile.html">validate_against_profile()</a></code>.</p>
+</div>
+<div class="section level2">
 <h2 id="validating-evidence-against-a-profile">Validating evidence against a profile<a class="anchor" aria-label="anchor" href="#validating-evidence-against-a-profile"></a>
 </h2>
 <p><code><a href="../reference/validate_against_profile.html">validate_against_profile()</a></code> checks an evidence table
 against the profile’s required indicators and asset types:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  run_id           <span class="op">=</span> <span class="st">"run-001"</span>,</span>
 <span>  study_id         <span class="op">=</span> <span class="st">"STUDY01"</span>,</span>
@@ -232,7 +274,7 @@ against the profile’s required indicators and asset types:</p>
 <span><span class="co">#&gt; [10] "R-HIGH-RPN"        "R-OPEN-RISK"       "R-MITIGATION-GAP" </span></span>
 <span><span class="co">#&gt; [13] "U-DEFINE-COMPLETE" "U-REVIEWER-NOTE"   "U-LABEL-QUALITY"</span></span></code></pre></div>
 <p>The <code>details</code> tibble shows per-requirement status:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">val</span><span class="op">$</span><span class="va">details</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;   requirement               status </span></span>
@@ -249,7 +291,7 @@ against the profile’s required indicators and asset types:</p>
 </h2>
 <p>Some authorities adjust requirements based on study phase. Pass
 <code>study_phase</code> to reflect phase-specific requirements:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pmda_nda_p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/submission_profile.html">submission_profile</a></span><span class="op">(</span><span class="st">"PMDA"</span>, <span class="st">"NDA_JP"</span>, study_phase <span class="op">=</span> <span class="st">"Phase3"</span><span class="op">)</span></span>
 <span><span class="va">pmda_nda_p3</span><span class="op">$</span><span class="va">pillar_weights</span></span>
 <span><span class="co">#&gt;   quality     trace      risk usability </span></span>
@@ -262,7 +304,7 @@ against the profile’s required indicators and asset types:</p>
 pins that to a named, dated version, so a score can be reproduced and
 compared over time as guidance changes. <code><a href="../reference/rule_packs.html">rule_packs()</a></code> lists
 what is available:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r4sub.github.io/r4subprofile/">r4subprofile</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/rule_packs.html">rule_packs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
@@ -272,7 +314,7 @@ what is available:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ema-2026.1 EMA       2026.1  2026-01-01               15</span></span></code></pre></div>
 <p>Select one by id. Each indicator carries a <code>source</code> field
 for its authoritative citation:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule_pack.html">rule_pack</a></span><span class="op">(</span><span class="st">"fda-2026.1"</span><span class="op">)</span></span>
 <span><span class="va">pack</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Rule pack <span style="color: #0000BB;">"fda-2026.1"</span>: FDA, version 2026.1, effective 2026-01-01</span></span>
@@ -291,7 +333,7 @@ for its authoritative citation:</p>
 <code>NA</code>: the citations are left for entry from a controlled
 regulatory reference list, rather than filled with unverified section
 numbers. Supply them when you have them:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pack</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule_pack.html">rule_pack</a></span><span class="op">(</span></span>
 <span>  <span class="st">"fda-2026.1"</span>,</span>
 <span>  sources <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Q-MISS-VAR"</span> <span class="op">=</span> <span class="st">"FDA Study Data Technical Conformance Guide"</span><span class="op">)</span></span>
@@ -303,7 +345,7 @@ numbers. Supply them when you have them:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Q-MISS-VAR   FDA Study Data Technical Conformance Guide</span></span></code></pre></div>
 <p>Record the pack on a scored result so the score can always be traced
 back to the exact ruleset and version that produced it:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rule_pack_provenance.html">rule_pack_provenance</a></span><span class="op">(</span><span class="va">pack</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         rule_pack rule_pack_version    effective_date </span></span>
 <span><span class="co">#&gt;      "fda-2026.1"          "2026.1"      "2026-01-01"</span></span></code></pre></div>

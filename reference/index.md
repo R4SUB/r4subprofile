@@ -4,6 +4,8 @@
 
 - [`submission_profile()`](https://r4sub.github.io/r4subprofile/reference/submission_profile.md)
   : Create a Submission Profile
+- [`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md)
+  : Build a Submission Profile from Caller-Supplied Values
 - [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)
   : Summarize a Submission Profile
 - [`validate_against_profile()`](https://r4sub.github.io/r4subprofile/reference/validate_against_profile.md)
