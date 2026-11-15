@@ -3,6 +3,27 @@
 ## r4subprofile (development version)
 
 - Add
+  [`write_profile()`](https://r4sub.github.io/r4subprofile/reference/write_profile.md)
+  and
+  [`read_profile()`](https://r4sub.github.io/r4subprofile/reference/read_profile.md),
+  a portable JSON serialization round-trip for a `submission_profile`.
+  [`write_profile()`](https://r4sub.github.io/r4subprofile/reference/write_profile.md)
+  serializes any profile – a built-in authority profile or a
+  [`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md)
+  – to a schema-tagged JSON document;
+  [`read_profile()`](https://r4sub.github.io/r4subprofile/reference/read_profile.md)
+  reads it back into an equivalent profile, routing the reconstruction
+  through
+  [`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md)
+  so an imported profile is checked by exactly the same structural
+  invariants as the shipped ones. Export, import, export is byte-stable.
+  The serialization only moves values that already exist on the profile;
+  it invents no weight or threshold. Also add
+  [`diff_profiles()`](https://r4sub.github.io/r4subprofile/reference/diff_profiles.md),
+  a read-only report of the fields in which a profile (typically a
+  custom or imported one) differs from a built-in authority profile.
+
+- Add
   [`custom_profile()`](https://r4sub.github.io/r4subprofile/reference/custom_profile.md),
   a builder for a `submission_profile` from caller-supplied values.
   Every regulatory quantity (pillar weights, decision bands, required
@@ -14,6 +35,7 @@
   existing accessor. This lets a sponsor score against an internal,
   regional, or not-yet-shipped ruleset whose numbers come from their own
   authoritative source.
+
 - [`compare_authorities()`](https://r4sub.github.io/r4subprofile/reference/compare_authorities.md)
   gains an optional `rank_by` argument. The default `NULL` leaves the
   output and its ordering exactly as before. Set to
@@ -22,11 +44,13 @@
   and adds the additive columns `strictness_rank`, `minor_gaps_min`, and
   `conditional_min`. Ranking only reorders rows and adds columns; no
   weight, threshold, or other configured value changes.
+
 - [`profile_summary()`](https://r4sub.github.io/r4subprofile/reference/profile_summary.md)
   gains a `format` argument. The default `"console"` keeps the printed,
   invisibly-returned behavior; `"tibble"` returns a tidy
   one-row-per-field tibble of the profile, so a summary can be filtered,
   joined, or written out programmatically.
+
 - Add an internal structural check over the authority configuration,
   wired into the test suite: for every authority and submission type it
   asserts that pillar weights sum to 1, decision bands are contiguous

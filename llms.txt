@@ -117,6 +117,12 @@ MIT
   : Extract Risk Configuration from a Profile
 - [`profile_sci_config()`](https://r4sub.github.io/r4subprofile/reference/profile_sci_config.md)
   : Extract SCI Configuration from a Profile
+- [`write_profile()`](https://r4sub.github.io/r4subprofile/reference/write_profile.md)
+  : Serialize a Submission Profile to Portable JSON
+- [`read_profile()`](https://r4sub.github.io/r4subprofile/reference/read_profile.md)
+  : Read a Submission Profile from Portable JSON
+- [`diff_profiles()`](https://r4sub.github.io/r4subprofile/reference/diff_profiles.md)
+  : Compare a Profile Against a Built-in Authority
 
 ## Rule packs
 
