@@ -30,6 +30,9 @@ reference:
       - profile_required_indicators
       - profile_risk_config
       - profile_sci_config
+      - write_profile
+      - read_profile
+      - diff_profiles
   - title: "Rule packs"
     contents:
       - rule_pack

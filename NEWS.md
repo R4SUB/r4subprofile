@@ -1,5 +1,17 @@
 # r4subprofile (development version)
 
+- Add `write_profile()` and `read_profile()`, a portable JSON serialization
+  round-trip for a `submission_profile`. `write_profile()` serializes any
+  profile -- a built-in authority profile or a `custom_profile()` -- to a
+  schema-tagged JSON document; `read_profile()` reads it back into an
+  equivalent profile, routing the reconstruction through `custom_profile()` so
+  an imported profile is checked by exactly the same structural invariants as
+  the shipped ones. Export, import, export is byte-stable. The serialization
+  only moves values that already exist on the profile; it invents no weight or
+  threshold. Also add `diff_profiles()`, a read-only report of the fields in
+  which a profile (typically a custom or imported one) differs from a built-in
+  authority profile.
+
 - Add `custom_profile()`, a builder for a `submission_profile` from
   caller-supplied values. Every regulatory quantity (pillar weights, decision
   bands, required indicators and asset types, minimum coverage, RPN bands,
